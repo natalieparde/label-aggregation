@@ -20,7 +20,7 @@ The files output by the filtering algorithm will include:
 * `hitwise_r_info.tsv`: Correlation statistics for each worker, for each HIT that worker completed.
 * `r_value_info.tsv`: Correlation statistics for each HIT.  For the weighted correlation values, weights correspond to each individual worker's average r-value.
 * `processed_<original_filename>`: A copy of the original file being processed, edited to accept and reject workers based on the algorithm's results.
-* `<original_combined_filename>_qa_stage[0+].tsv`: The filtering algorithm interates some number of times until it reaches a predetermined stopping point or the lists of workers converge.  The system outputs a snapshot of the statistics associated with each worker following each iteration of the algorithm.
+* `<original_combined_filename>_qa_stage[0+].tsv`: The filtering algorithm iterates some number of times until it reaches a predetermined stopping point or the lists of workers converge.  The system outputs a snapshot of the statistics associated with each worker following each iteration of the algorithm.
 
 Instructions for Running
 ========================
