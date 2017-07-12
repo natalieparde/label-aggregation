@@ -25,6 +25,9 @@ The files output by the filtering algorithm will include:
 Instructions for Running
 ========================
 
+filter_hits.py
+--------------
+
 To run the code, you will need to set four variables in the program's Main() function:
 * `self.input_dir`
 ..* Line 891: Set this to the directory containing your input files.
@@ -40,6 +43,34 @@ After you have set these variables, simply run the code as follows:
 python filter_hits.py
 ```
 
+merge_amt_batches.py
+--------------------
+To easily generate the combined file that contains both existing HITs and HITs
+from a new batch, you can use the provided script, `merge_amt_batches.py`.  To
+run the script, you'll need to set four variables in the program's Main() function:
+* `input_dir`
+..* Line 148: Set this to the directory containing your input files.
+* `output_dir`
+..* Line 149: Set this to the directory containing your output files.
+* `existing_hit_file`
+..* Line 150: Set this to a file containing your existing HITs.
+* `new_hit_file`
+..* Line 151: Set this to a file containing your new HITs.  Note that there should be no overlap in HITs between `existing_hit_file` and `new_hit_file` (e.g., as in the case of getting additional assignments after rejecting some HITs)!  Otherwise you'll end up with duplicates in your combined HIT file.
+
+After you have set these variables, simply run the code as follows:
+```
+python merge_amt_batches.py
+```
+
+The program will output a time-stamped, combined HIT file to `sample_output`.
+If you leave the variables as they are, the program will combine 
+`sample_input/anonymized_combined_hits_1-90.csv` and
+`sample_input/anonymized_new_hits_91-100.csv` to create an merged file
+identical to `sample_input/anonymized_combined_hits_1-100.csv`.
+
+
+anonymize_worker_ids.py
+-----------------------
 Note that an additional script, `anonymize_worker_ids.py`, is also included in
 `sample_input`.  This script was used to anonymize the worker IDs in the sample
 data before releasing it publicly.  You shouldn't need to use this script, but
