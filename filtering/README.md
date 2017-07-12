@@ -29,14 +29,10 @@ filter_hits.py
 --------------
 
 To run the code, you will need to set four variables in the program's Main() function:
-* `self.input_dir`
-..* Line 891: Set this to the directory containing your input files.
-* `self.output_dir`
-..* Line 892: Set this to the directory to which you would like the program to write its output.
-* `self.filename`
-..* Line 893: Set this to a combined file that contains both HITs that you have already accepted/rejected, and newly-submitted HITs.  If you do not have any accepted/rejected HITs yet, just set this to the same as the file below.  Note: Make sure that your columns are correctly aligned in your combined file!
-* `new_hits_filename`
-..* Line 894: Set this to the file containing submitted HIT assignments that you have just downloaded from Amazon Mechanical Turk.
+* `self.input_dir`: Line 891: Set this to the directory containing your input files.
+* `self.output_dir`: Line 892: Set this to the directory to which you would like the program to write its output.
+* `self.filename`: Line 893: Set this to a combined file that contains both HITs that you have already accepted/rejected, and newly-submitted HITs.  If you do not have any accepted/rejected HITs yet, just set this to the same as the file below.  Note: Make sure that your columns are correctly aligned in your combined file!
+* `new_hits_filename`: Line 894: Set this to the file containing submitted HIT assignments that you have just downloaded from Amazon Mechanical Turk.
 
 After you have set these variables, simply run the code as follows:
 ```
@@ -48,14 +44,10 @@ merge_amt_batches.py
 To easily generate the combined file that contains both existing HITs and HITs
 from a new batch, you can use the provided script, `merge_amt_batches.py`.  To
 run the script, you'll need to set four variables in the program's Main() function:
-* `input_dir`
-..* Line 148: Set this to the directory containing your input files.
-* `output_dir`
-..* Line 149: Set this to the directory containing your output files.
-* `existing_hit_file`
-..* Line 150: Set this to a file containing your existing HITs.
-* `new_hit_file`
-..* Line 151: Set this to a file containing your new HITs.  Note that there should be no overlap in HITs between `existing_hit_file` and `new_hit_file` (e.g., as in the case of getting additional assignments after rejecting some HITs)!  Otherwise you'll end up with duplicates in your combined HIT file.
+* `input_dir`: Line 148: Set this to the directory containing your input files.
+* `output_dir`: Line 149: Set this to the directory containing your output files.
+* `existing_hit_file`: Line 150: Set this to a file containing your existing HITs.
+* `new_hit_file`: Line 151: Set this to a file containing your new HITs.  Note that there should be no overlap in HITs between `existing_hit_file` and `new_hit_file` (e.g., as in the case of getting additional assignments after rejecting some HITs)!  Otherwise you'll end up with duplicates in your combined HIT file.
 
 After you have set these variables, simply run the code as follows:
 ```
@@ -65,7 +57,7 @@ python merge_amt_batches.py
 The program will output a time-stamped, combined HIT file to `sample_output`.
 If you leave the variables as they are, the program will combine 
 `sample_input/anonymized_combined_hits_1-90.csv` and
-`sample_input/anonymized_new_hits_91-100.csv` to create an merged file
+`sample_input/anonymized_new_hits_91-100.csv` to create a merged file
 identical to `sample_input/anonymized_combined_hits_1-100.csv`.
 
 
