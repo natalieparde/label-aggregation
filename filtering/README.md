@@ -28,6 +28,9 @@ Instructions for Running
 filter_hits.py
 --------------
 
+Before running this program, ensure that you have installed the `scipy` library
+for Python: https://www.scipy.org/install.html
+
 To run the code, you will need to set four variables in the program's Main() function:
 * `self.input_dir`: Line 891: Set this to the directory containing your input files.
 * `self.output_dir`: Line 892: Set this to the directory to which you would like the program to write its output.
