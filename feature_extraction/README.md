@@ -43,10 +43,13 @@ to `sample_output`.  The output filename will be formatted as `<pattern>_annotat
 extract_features.py
 -------------------
 
-There are a number of different ways that you can run `extract_features.py`.  <u>If
+Before running this program, ensure that you have installed the `scipy` library
+for Python: https://www.scipy.org/install.html
+
+There are a number of different ways that you can run `extract_features.py`.  <b>If
 you would like to extract features from an AMT results file (such as that created
 by `merge_amt_results.py`) and you also have expert labels for those 
-instances</u>, you should uncomment lines 737, 741, and 742, and comment lines 
+instances</b>, you should uncomment lines 737, 741, and 742, and comment lines 
 738, 739, 740, and 743.  These lines should already be commented/uncommented
 if you have not modified the original version of the file in any way.
 
@@ -58,6 +61,9 @@ Running the program in this way will produce a total of 7 output files:
 * `<prefix>_train_mace_vector.csv`: An <i>n</i>-dimensional vector for each instance in the training set, with one column corresponding to each unique annotator in the dataset.  For a given row (instance), filled columns are associated with annotators who annotated that instance.  This format is used as input to MACE, used in the evaluation for the Item-Response approach.
 * `<prefix>_validation_mace_vector.csv`: A MACE-formatted input vector for the validation set.
 * `<prefix>_test_mace_vector.csv`: A MACE-formatted input vector for the test set.
+
+You can specify `<prefix>` by setting the corresponding parameter in `self.create_data_files()`
+(line 742).
 
 Before running `extract_features.py`, you will need to set four variables in its
 Main() function:
@@ -71,8 +77,8 @@ Once you've set those variables, you should be able to run the program as follow
 python extract_features.py
 ```
 
-<u>If you would like to extract features from an AMT results file but you do not
-have expert labels for those instances</u>, you should comment lines 737, 739,
+<b>If you would like to extract features from an AMT results file but you do not
+have expert labels for those instances</b>, you should comment lines 737, 739,
 740, and 742, and uncomment lines 738 and 743.  Set the same variables indicated
 previously (you do not need to set `expert_filename`).  Running the program this way
 will produce a single output file, `unlabeled_crowdsourced_instances.csv`, which
