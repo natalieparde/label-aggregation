@@ -13,3 +13,15 @@ Sample input and output files are provided in the directories `sample_input` and
 `sample_output`, respectively.  Note that all Amazon Mechanical Turk worker IDs
 have been anonymized, and the anonymized IDs do not necessarily match those of
 the data released elsewhere in this repository.
+
+Instructions for Running
+========================
+
+train_and_test.py
+-----------------
+
+Before running this program, you will need to install the following dependencies
+if they are not on your system already:
+* `scipy`: https://www.scipy.org/install.html
+* `python-weka-wrapper`: http://pythonhosted.org/python-weka-wrapper/install.html
+* `scikit-learn`: http://scikit-learn.org/stable/install.html
