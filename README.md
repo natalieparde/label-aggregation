@@ -10,7 +10,9 @@ Processing (EMNLP 2017)</i>. Copenhagen, Denmark, September 7-11, 2017.
 
 The code is divided into subdirectories; each subdirectory includes its own
 README file.  Please refer to these README files for instructions on running
-the code.
+the code.  All sample data is licensed under a 
+<a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons
+Attribution ShareAlike 3.0 Unported License</a>.
 
 If you use this code in any way, please cite the paper referenced above.  Feel
 free to get in touch if you have any questions, either through GitHub or at:
