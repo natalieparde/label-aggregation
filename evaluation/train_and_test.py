@@ -89,8 +89,8 @@ class TrainAndTest:
       # Get the correlation coefficient between the arrays using sklearn.
       slope, intercept, r_round, p_value, std_err = scipy.stats.linregress(predictions_rounded, true_values)
       rms_round = sqrt(mean_squared_error(true_values, predictions_rounded))
-     # accuracy = accuracy_score(true_values, predictions_rounded)
-      result_line = [self.classifier_name.replace("weka.classifiers.", ""), train_set, test_set, label_type + " (Rounded)", r_round, rms_round, "N/A"]
+      accuracy = accuracy_score(true_values, predictions_rounded)
+      result_line = [self.classifier_name.replace("weka.classifiers.", ""), train_set, test_set, label_type + " (Rounded)", r_round, rms_round, accuracy]
       results.append(result_line)
 
       slope, intercept, r_continuous, p_value, std_err = scipy.stats.linregress(predictions_continuous, true_values)
@@ -127,8 +127,8 @@ class TrainAndTest:
       self.input_dir = "sample_input"
       self.output_dir = "sample_output"
       self.classifier_name = "weka.classifiers.meta.RandomSubSpace"
-      train_dataset = "gold_label_dataset_train+validation.csv"
-      test_dataset = "gold_label_dataset_test.csv"
+      train_dataset = "train_and_validation.csv"
+      test_dataset = "test.csv"
       jvm.start(packages="/home/parde/wekafiles")  # Path to the wekafiles directory (installed with Weka).
       
       # Uncomment the read_data version that uses your preferred feature set.

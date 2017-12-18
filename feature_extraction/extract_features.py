@@ -207,8 +207,8 @@ class AdjudicationInstanceBuilder:
 
                      if annotation not in self.annotationXaXscore_expert:
                         self.annotationXaXscore_expert[annotation] = {}
-                    # self.annotationXaXscore_expert[annotation][annotator] = score  # GitHub version
-                     self.annotationXaXscore_expert[annotation][annotator] = adjudicated_labels[annotation]  # Adjudicated label version.
+                     self.annotationXaXscore_expert[annotation][annotator] = score  # GitHub version
+                    # self.annotationXaXscore_expert[annotation][annotator] = adjudicated_labels[annotation]  # Adjudicated label version.
          else:  # Store the indices associated with each column.
             self.columnXid_expert = {}
             col_num = 0
@@ -627,7 +627,7 @@ class AdjudicationInstanceBuilder:
       if labeled:
          # Get the true label for the instance (my label).
          for a_j in self.annotationXaXscore_expert[instance]:
-            fv.append(self.annotationXaXscore_expert[instance][a_j].strip())
+            fv.append(self.annotationXaXscore_expert[instance][a_j])
       else:
          fv.append("?")
 
@@ -747,15 +747,15 @@ class AdjudicationInstanceBuilder:
    def Main(self):
       self.input_dir = "sample_input"
       self.output_dir = "sample_output"
-      worker_filename = "f5_annotations.csv"
-      expert_filename = "natalie_annotations.csv"
+      worker_filename = "anonymized_combined_hits_1-100.csv"
+      expert_filename = "expert_combined_hits_1-100.csv"
 
       self.read_data(worker_filename, expert_filename)
     #  self.read_data_worker_only(worker_filename)  # Use read_data(worker, expert) if you also have adjudications for this data.
     #  self.read_data_snow(worker_filename)  # Use to read data from Affect (Emotion) or Affect (Valence).
     #  self.read_data_trec(worker_filename)  # Use to read data from WebRel.
       good_annotators = self.identify_good_annotators()
-      self.create_data_files(good_annotators, num_best=5, labeled=True, prefix="gold")  # Set num_best to the number of annotations you wish to use for each instance.
+      self.create_data_files(good_annotators, num_best=5, labeled=True, prefix="sample")  # Set num_best to the number of annotations you wish to use for each instance.
     #  self.create_unlabeled_data_file(good_annotators, 5)
 
 if __name__ == '__main__':
