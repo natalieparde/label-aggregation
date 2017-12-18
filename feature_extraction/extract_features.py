@@ -99,6 +99,16 @@ class AdjudicationInstanceBuilder:
    # annotations, and the latter four dictionaries will store all the data we
    # need in organized formats.
    def read_data(self, worker_filename, expert_filename):
+      # Extra Step for Adjudicated Labels!  Not on GitHub right now.
+      adjudicated_label_file = open("gold_metaphor_novelty.csv")
+      adjudicated_labels = {}
+      for line in adjudicated_label_file:
+         cols = line.split(",")
+         if cols[0] != "ID":
+            adjudicated_labels[cols[0]] = cols[1]
+      adjudicated_label_file.close()
+
+      # Begin GitHub version.
       infile_workers = open(self.input_dir + "/" + worker_filename)
       infile_expert = open(self.input_dir + "/" + expert_filename)
 
@@ -197,7 +207,8 @@ class AdjudicationInstanceBuilder:
 
                      if annotation not in self.annotationXaXscore_expert:
                         self.annotationXaXscore_expert[annotation] = {}
-                     self.annotationXaXscore_expert[annotation][annotator] = score
+                    # self.annotationXaXscore_expert[annotation][annotator] = score  # GitHub version
+                     self.annotationXaXscore_expert[annotation][annotator] = adjudicated_labels[annotation]  # Adjudicated label version.
          else:  # Store the indices associated with each column.
             self.columnXid_expert = {}
             col_num = 0
@@ -616,7 +627,7 @@ class AdjudicationInstanceBuilder:
       if labeled:
          # Get the true label for the instance (my label).
          for a_j in self.annotationXaXscore_expert[instance]:
-            fv.append(self.annotationXaXscore_expert[instance][a_j])
+            fv.append(self.annotationXaXscore_expert[instance][a_j].strip())
       else:
          fv.append("?")
 
@@ -643,6 +654,7 @@ class AdjudicationInstanceBuilder:
    def create_data_files(self, good_annotators, num_best=5, labeled="True", prefix=""):
       train_outfile = open(self.output_dir + "/" + prefix+"_label_dataset_train.csv", "w")
       validation_outfile = open(self.output_dir + "/" + prefix+"_label_dataset_validation.csv", "w")
+      train_plus_validation_outfile = open(self.output_dir + "/" + prefix+"_label_dataset_train+validation.csv", "w")
       test_outfile = open(self.output_dir + "/" + prefix+"_label_dataset_test.csv", "w")
       mace_train_out = open(self.output_dir + "/" + prefix+"_train_mace_vector.csv", "w")
       mace_validation_out = open(self.output_dir + "/" + prefix+"_validation_mace_vector.csv", "w")
@@ -650,6 +662,7 @@ class AdjudicationInstanceBuilder:
 
       train_writer = csv.writer(train_outfile, quotechar='"')
       validation_writer = csv.writer(validation_outfile, quotechar='"')
+      train_plus_validation_writer = csv.writer(train_plus_validation_outfile, quotechar='"')
       test_writer = csv.writer(test_outfile, quotechar='"')
       mace_train = csv.writer(mace_train_out)
       mace_validation = csv.writer(mace_validation_out)
@@ -663,6 +676,7 @@ class AdjudicationInstanceBuilder:
    #   labels = ["ID", "Avg_Annotation", "Weighted_Avg_Annotation", "Weighted_Avg_Annotation_Good", "Weighted_R_HIT", "A1", "A1_R", "A1_R_Good", "A2", "A2_R", "A2_R_Good", "A3", "A3_R", "A3_R_Good", "A4", "A4_R", "A4_R_Good", "A5", "A5_R", "A5_R_Good", "A6", "A6_R", "A6_R_Good", "A7", "A7_R", "A7_R_Good", "A8", "A8_R", "A8_R_Good", "A9", "A9_R", "A9_R_Good", "A10", "A10_R", "A10_R_Good", "A1xR", "A1xR_R", "A2xR", "A2xR_R", "A3xR", "A3xR_R", "A4xR", "A4xR_R", "A5xR", "A5xR_R", "A6xR", "A6xR_R", "A7xR", "A7xR_R", "A8xR", "A8xR_R", "A9xR", "A9xR_R", "A10xR", "A10xR_R", "True_Label"]  # Uncomment for Affect datasets.
       train_writer.writerow(labels)
       validation_writer.writerow(labels)
+      train_plus_validation_writer.writerow(labels)
       test_writer.writerow(labels)
       writer.writerow(labels)
 
@@ -691,10 +705,12 @@ class AdjudicationInstanceBuilder:
          writer.writerow(fv)
          if random_num == 1:
             train_writer.writerow(fv)
+            train_plus_validation_writer.writerow(fv)
             mace_train.writerow(mace_fv)
             train_count += 1
          elif random_num == 2:
             validation_writer.writerow(fv)
+            train_plus_validation_writer.writerow(fv)
             mace_validation.writerow(mace_fv)
             validation_count += 1
          elif random_num == 3:
@@ -731,15 +747,15 @@ class AdjudicationInstanceBuilder:
    def Main(self):
       self.input_dir = "sample_input"
       self.output_dir = "sample_output"
-      worker_filename = "anonymized_combined_hits_1-100.csv"
-      expert_filename = "expert_combined_hits_1-100.csv"
+      worker_filename = "f5_annotations.csv"
+      expert_filename = "natalie_annotations.csv"
 
       self.read_data(worker_filename, expert_filename)
     #  self.read_data_worker_only(worker_filename)  # Use read_data(worker, expert) if you also have adjudications for this data.
     #  self.read_data_snow(worker_filename)  # Use to read data from Affect (Emotion) or Affect (Valence).
     #  self.read_data_trec(worker_filename)  # Use to read data from WebRel.
       good_annotators = self.identify_good_annotators()
-      self.create_data_files(good_annotators, num_best=5, labeled=True, prefix="sample")  # Set num_best to the number of annotations you wish to use for each instance.
+      self.create_data_files(good_annotators, num_best=5, labeled=True, prefix="gold")  # Set num_best to the number of annotations you wish to use for each instance.
     #  self.create_unlabeled_data_file(good_annotators, 5)
 
 if __name__ == '__main__':

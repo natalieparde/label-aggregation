@@ -164,9 +164,9 @@ class MergeResultsFiles:
 
 
    def Main(self):
-      input_dir = "sample_input"
+      input_dir = "crowd_input"
       output_dir = "sample_output"
-      pattern = "anonymized_amt"
+      pattern = "f5"
       self.get_matching_files(pattern, input_dir)
       self.merge_all(pattern, output_dir)
 
